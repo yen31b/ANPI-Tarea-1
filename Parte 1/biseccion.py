@@ -1,3 +1,5 @@
+import math
+
 """
 Aproximacion del cero de la funcion utilizando el metodo de la Biseccion
 Entrada: funcion real y continua, 
@@ -10,8 +12,12 @@ Salida: x_k -> aproximacion al cero de la funcion
         k -> numero de iteraciones realizadas
         error -> error del metodo dado por |func(xk)|
 """
-def biseccion(funcion, a, b, tolerancia, iter_max):
+def biseccion(func, a, b, tolerancia, iter_max):
+    #x = symbols('x')
+    funcion = lambda x: eval(func)
     x_k = 0
+    error = 0
+    k = 0
     # No se puede aplicar el metodo porque no cumple las condiciones
     if funcion(a) == 0:
         x_k = a
@@ -28,24 +34,24 @@ def biseccion(funcion, a, b, tolerancia, iter_max):
     elif funcion(a) * funcion(b) < 0:
         for k in range(iter_max + 1):
             x_k = (a + b) / 2
-            x_k_menos_uno = xk
+            x_k_menos_uno = x_k
             
-            if f(x_k) == 0:
+            if funcion(x_k) == 0:
                 return x_k
             
-            if f(a) * f(x_k) < 0:
+            if funcion(a) * funcion(x_k) < 0:
                 b = x_k
             else:
                 a = x_k
-        return (a + b) / 2
-        
-        error = max(abs(funcion(x_k)),abs(x_k - x_k_menos_uno))
-        if error < tolerancia:
-            break
-    print( "x_k = " + x_k + "\n" + "error = " + error + "\n" + "k = " + k)
-    return x_k,error,k
+            error = max(abs(funcion(x_k)),abs(x_k - x_k_menos_uno))
+            if error < tolerancia:
+                break
+        print( "x_k = " + str(x_k) + "\n" + "error = " + str(error) + "\n" + "k = " + str(k))
+        return ((a + b) / 2), error, k
+            
+    
    
-
+biseccion("math.exp(x)-x-10", 2,3 ,1e-10,1000)
 """
 function [xk,error,k]=biseccion(a,b,func,tol,iterMax)
   %
