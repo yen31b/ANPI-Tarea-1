@@ -1,4 +1,5 @@
 import math
+from time import time
 
 """
 Aproximacion del cero de la funcion utilizando el metodo de la Biseccion
@@ -13,7 +14,7 @@ Salida: x_k -> aproximacion al cero de la funcion
         error -> error del metodo dado por |func(xk)|
 """
 def biseccion(func, a, b, tolerancia, iter_max):
-    #x = symbols('x')
+    tiempo_inicial = time()
     funcion = lambda x: eval(func)
     x_k = 0
     error = 0
@@ -32,6 +33,8 @@ def biseccion(func, a, b, tolerancia, iter_max):
     
     # Si se cumple el teorema de Bolzano
     elif funcion(a) * funcion(b) < 0:
+        a_inicial = a
+        b_inicial = b
         for k in range(iter_max + 1):
             x_k = (a + b) / 2
             x_k_menos_uno = x_k
@@ -46,10 +49,15 @@ def biseccion(func, a, b, tolerancia, iter_max):
             error = max(abs(funcion(x_k)),abs(x_k - x_k_menos_uno))
             if error < tolerancia:
                 break
-        print( "x_k = " + str(x_k) + "\n" + "error = " + str(error) + "\n" + "k = " + str(k))
+        tiempo_final = time() - tiempo_inicial
+        print( "valor inicial 1 = " + str(a_inicial) + "\n" + 
+               "valor inicial 2 = " + str(b_inicial) + "\n" + 
+               "x_k = " + str(x_k) + "\n" + 
+               "error = " + str(error) + "\n" + 
+               "k = " + str(k) + "\n" + 
+               "tiempo(s) = " + str(tiempo_final))
         return ((a + b) / 2), error, k
-            
-    
+
    
 biseccion("math.exp(x)-x-10", 2,3 ,1e-10,1000)
 """
