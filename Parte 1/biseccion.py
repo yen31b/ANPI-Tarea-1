@@ -14,8 +14,14 @@ Salida: x_k -> aproximacion al cero de la funcion
         error -> error del metodo dado por |func(xk)|
 """
 def biseccion(func, a, b, tolerancia, iter_max):
+    #Valores iniciales
+    a_inicial = a
+    b_inicial = b
+    #Tiempo
     tiempo_inicial = time()
+    #Tomar el string y convertirlo a una expresion que se pueda usar como funcion
     funcion = lambda x: eval(func)
+    
     x_k = 0
     error = 0
     k = 0
@@ -33,8 +39,6 @@ def biseccion(func, a, b, tolerancia, iter_max):
     
     # Si se cumple el teorema de Bolzano
     elif funcion(a) * funcion(b) < 0:
-        a_inicial = a
-        b_inicial = b
         for k in range(iter_max + 1):
             x_k = (a + b) / 2
             x_k_menos_uno = x_k
@@ -49,6 +53,7 @@ def biseccion(func, a, b, tolerancia, iter_max):
             error = max(abs(funcion(x_k)),abs(x_k - x_k_menos_uno))
             if error < tolerancia:
                 break
+        #parar el tiempo
         tiempo_final = time() - tiempo_inicial
         print( "valor inicial 1 = " + str(a_inicial) + "\n" + 
                "valor inicial 2 = " + str(b_inicial) + "\n" + 
@@ -58,48 +63,5 @@ def biseccion(func, a, b, tolerancia, iter_max):
                "tiempo(s) = " + str(tiempo_final))
         return ((a + b) / 2), error, k
 
-   
+#prueba   
 biseccion("math.exp(x)-x-10", 2,3 ,1e-10,1000)
-"""
-function [xk,error,k]=biseccion(a,b,func,tol,iterMax)
-  %
-  % Aproximacion del cero de la funcion func utilizando el metodo de la Biseccion
-  %
-  % Estructura: [xk,error,k]=biseccion(a,b,func,tol,iterMax)
-  %
-  % Parametros: a,b = intervalo [a,b] donde se busca el cero
-  %             func = texto que representa a la funcion a la que se le aproxima el cero
-  %             tol = tolerancia de aproximacion
-  %             iterMax = iteraciones maximas a realizar
-  %             xk = aproximacion del cero
-  %             error = error del metodo dado por |func(xk)|
-  %             k = iteraciones realizadas
-  %
-  % [xk,error,k]=biseccion(2,3,'exp(x)-x-10',1e-10,1000)
-
-
-  % Texto a una Funcion Numerica en Octave
-  f=str2func(['@(x)' func]);
-
-  if f(a)*f(b)<0
-    for k=1:iterMax
-      xk=(a+b)/2;
-      if f(a)*f(xk)<0
-        b=xk;
-      else
-        a=xk;
-      end
-      error=abs(f(xk));
-      if error<tol
-        break
-      end
-    end
-  else
-    xk='N/A';
-    error='N/A';
-    k='N/A';
-    display('No se cumple la condicion de Bolzano con los datos dados')
-  end
-
-end
-"""
