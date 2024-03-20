@@ -59,4 +59,4 @@ def falsa_posicion(func, a, b, tolerancia, iter_max):
         return ((a + b) / 2), error, k
 
 #prueba   
-falsa_posicion("math.exp(x)-x-10", 2,3 ,1e-10,1000)
+falsa_posicion("0.986*x**3 - 5.181*x**2 + 9.067*x - 5.289", 1,4 ,1e-10,1000)
