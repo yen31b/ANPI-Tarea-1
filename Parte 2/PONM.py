@@ -45,12 +45,6 @@ def PONM(xo, func, tol, iterMax):
             denominator = derivedfEvaluatedXn * (funcEvaluatedXn - 3 * funcEvaluatedYn)
             xk = xo - (nominator / denominator)
 
-            # Manejo de valores complejos
-            if isinstance(xk, complex) or abs(xk.imag) > 0:
-                tiempo = time.time() - tiempo_inicial
-                xk = xkMinusOne
-                break
-
         # Cálculo del error
         error = max(abs(f_func(xk)), abs(xk - xkMinusOne))
 
@@ -68,7 +62,7 @@ def PONM(xo, func, tol, iterMax):
 
 # Ejemplo de uso
 xo = 2
-func = '1-(16*sqrt(x)/7)+(4*x/3)-(1*(x**4)/21)'
+func = '0.986*x**3 - 5.181*x**2 + 9.067*x - 5.289'
 tol = 1e-10
 iterMax = 10
 
