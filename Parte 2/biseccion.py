@@ -4,14 +4,13 @@ from time import time
 """
 Aproximacion del cero de la funcion utilizando el metodo de la Biseccion
 Entrada: funcion real y continua, 
-         intervalo [a,b]
+         intervalo [a,b] de la funcion en el que se busca la aproximacion
          tol>0 -> tolerancia de aproximacion
          iterMax>0 -> iteraciones maximas a realizar
-         tol = tolerancia de aproximacion
 
 Salida: x_k -> aproximacion al cero de la funcion
         k -> numero de iteraciones realizadas
-        error -> error del metodo dado por |func(xk)|
+        error -> error del metodo dado por max(|funcion(x_k)|,|x_k - x_k_menos_uno|)
 """
 def biseccion(func, a, b, tolerancia, iter_max):
     #Valores iniciales
@@ -64,4 +63,4 @@ def biseccion(func, a, b, tolerancia, iter_max):
         return ((a + b) / 2), error, k
 
 #prueba   
-biseccion("math.exp(x)-x-10", 2,3 ,1e-10,1000)
+biseccion("0.986*x**3 - 5.181*x**2 + 9.067*x - 5.289", 1,4 ,1e-10,1000)
